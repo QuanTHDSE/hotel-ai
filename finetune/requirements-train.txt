@@ -1,0 +1,10 @@
+# Training-only dependencies (GPU). Use Python 3.11/3.12 in a separate venv.
+# Install torch with CUDA first if pip picks a CPU build:
+#   pip install torch --index-url https://download.pytorch.org/whl/cu124
+unsloth
+trl
+datasets
+transformers
+peft
+bitsandbytes
+accelerate

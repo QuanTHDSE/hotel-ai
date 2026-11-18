@@ -1,0 +1,200 @@
+[
+ {
+  "id": "avail-tomorrow",
+  "hotel": "song-han",
+  "message": "Ngày mai còn phòng cho 2 người không em, ở 1 đêm",
+  "expect_tool": "check_availability",
+  "expect_args": {
+   "check_in": "{d+1}",
+   "check_out": "{d+2}",
+   "adults": 2
+  }
+ },
+ {
+  "id": "avail-weekend",
+  "hotel": "song-han",
+  "message": "Tối thứ 7 tuần này còn phòng Deluxe không, 2 người 1 đêm",
+  "expect_tool": "check_availability",
+  "expect_args": {
+   "check_in": "{next_sat}",
+   "check_out": "{next_sat+1}"
+  }
+ },
+ {
+  "id": "avail-explicit-date",
+  "hotel": "song-han",
+  "message": "Mình muốn đặt từ {d+10:dm} đến {d+13:dm}, 2 người lớn. Báo giá giúp mình",
+  "expect_tool": "check_availability",
+  "expect_args": {
+   "check_in": "{d+10}",
+   "check_out": "{d+13}"
+  }
+ },
+ {
+  "id": "avail-family",
+  "hotel": "song-han",
+  "message": "Nhà mình 2 người lớn 2 bé, ở 2 đêm từ {d+5:dm}, có phòng nào phù hợp không",
+  "expect_tool": "check_availability",
+  "expect_args": {
+   "check_in": "{d+5}",
+   "check_out": "{d+7}",
+   "adults": 2,
+   "children": 2
+  }
+ },
+ {
+  "id": "avail-english",
+  "hotel": "song-han",
+  "message": "Hi, do you have a room for 2 adults from {d+3:dm} for 2 nights?",
+  "expect_tool": "check_availability",
+  "expect_args": {
+   "check_in": "{d+3}",
+   "check_out": "{d+5}"
+  }
+ },
+ {
+  "id": "avail-homestay",
+  "hotel": "doi-thong",
+  "message": "Homestay còn bungalow cuối tuần này không ạ? Ở tối thứ 6, 1 đêm",
+  "expect_tool": "check_availability",
+  "expect_args": {
+   "check_in": "{next_fri}",
+   "check_out": "{next_fri+1}"
+  }
+ },
+ {
+  "id": "missing-dates",
+  "hotel": "song-han",
+  "message": "Còn phòng không shop?",
+  "expect_no_tool": [
+   "check_availability",
+   "create_booking_hold"
+  ],
+  "expect_question": true
+ },
+ {
+  "id": "policy-cancel",
+  "hotel": "song-han",
+  "message": "Nếu mình hủy phòng thì có mất tiền không?",
+  "expect_tool": "search_policies",
+  "expect_contains_any": [
+   "3 ngày",
+   "miễn phí"
+  ]
+ },
+ {
+  "id": "policy-airport",
+  "hotel": "song-han",
+  "message": "Khách sạn có đưa đón sân bay không, giá sao?",
+  "expect_tool": "search_policies",
+  "expect_contains_any": [
+   "200.000",
+   "200k",
+   "250.000"
+  ]
+ },
+ {
+  "id": "policy-pet",
+  "hotel": "doi-thong",
+  "message": "Mình mang theo bé cún nhỏ 5kg được không?",
+  "expect_tool": "search_policies",
+  "expect_contains_any": [
+   "100.000",
+   "Bungalow",
+   "bungalow"
+  ]
+ },
+ {
+  "id": "policy-pet-hotel",
+  "hotel": "song-han",
+  "message": "Can I bring my cat?",
+  "expect_tool": "search_policies",
+  "expect_contains_any": [
+   "not",
+   "no ",
+   "không",
+   "sorry",
+   "Unfortunately",
+   "unfortunately"
+  ]
+ },
+ {
+  "id": "room-types",
+  "hotel": "song-han",
+  "message": "Khách sạn có những loại phòng nào vậy?",
+  "expect_tool_any": [
+   "list_room_types",
+   "get_room_type_details"
+  ],
+  "expect_contains_any": [
+   "Deluxe",
+   "Family"
+  ]
+ },
+ {
+  "id": "complaint",
+  "hotel": "song-han",
+  "message": "Phòng tôi ở hôm qua máy lạnh hỏng cả đêm, tôi rất bực, muốn gặp quản lý",
+  "expect_tool": "handoff_to_staff"
+ },
+ {
+  "id": "group",
+  "hotel": "song-han",
+  "message": "Công ty mình muốn đặt 15 phòng cho đoàn đi du lịch tháng sau",
+  "expect_tool_any": [
+   "handoff_to_staff",
+   "search_policies"
+  ]
+ },
+ {
+  "id": "no-hallucination",
+  "hotel": "song-han",
+  "message": "Khách sạn có sân tennis không?",
+  "expect_contains_any": [
+   "không",
+   "chưa có thông tin",
+   "nhân viên"
+  ],
+  "expect_no_price": true
+ },
+ {
+  "id": "book-flow-weekend",
+  "hotel": "song-han",
+  "turns": [
+   "Tối thứ 6 này còn phòng Superior cho 2 người không em, 1 đêm",
+   "Ok đặt giúp mình phòng Superior, tên Trần Eval, sđt 0905111222"
+  ],
+  "expect_tool": "create_booking_hold",
+  "expect_contains_any": [
+   "HD"
+  ]
+ },
+ {
+  "id": "book-flow-date",
+  "hotel": "song-han",
+  "turns": [
+   "Mình cần phòng Standard từ {d+12:dm} đến {d+14:dm}, 2 người",
+   "Chốt Standard nhé. Lê Văn Eval, 0912345678"
+  ],
+  "expect_tool": "create_booking_hold",
+  "expect_args": {
+   "check_in": "{d+12}",
+   "check_out": "{d+14}"
+  },
+  "expect_contains_any": [
+   "HD"
+  ]
+ },
+ {
+  "id": "book-missing-name",
+  "hotel": "doi-thong",
+  "turns": [
+   "Bungalow ngày {d+6:dm} 1 đêm còn không ạ",
+   "Đặt luôn cho mình nhé"
+  ],
+  "expect_no_tool": [
+   "create_booking_hold"
+  ],
+  "expect_question": true
+ }
+]
